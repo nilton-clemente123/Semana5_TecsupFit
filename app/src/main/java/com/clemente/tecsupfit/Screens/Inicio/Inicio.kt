@@ -15,6 +15,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.clemente.tecsupfit.components.ClaseCard
+import com.clemente.tecsupfit.model.Clase
 
 
 @Composable
@@ -26,9 +28,24 @@ fun InicioScreen( modifier: Modifier = Modifier) {
     )
 
     val clases = listOf(
-        "Yoga funcional - 7:00 am · Sala 2",
-        "Cross Training - 6:00 pm · Sala 1",
-        "Spinning - 7:30 pm · Sala 3"
+        Clase(
+            id = 1,
+            nombre = "Yoga funcional",
+            horario = "7:00 am",
+            sala = "Sala 2"
+        ),
+        Clase(
+            id = 2,
+            nombre = "Cross Training",
+            horario = "6:00 pm",
+            sala = "Sala 1"
+        ),
+        Clase(
+            id = 3,
+            nombre = "Spinning",
+            horario = "7:30 pm",
+            sala = "Sala 3"
+        )
     )
 
     var filtroSeleccionado = remember {
@@ -80,23 +97,5 @@ fun InicioScreen( modifier: Modifier = Modifier) {
                 )
             }
         }
-    }
-}
-
-@Composable
-fun ClaseCard(
-    clase: String
-) {
-
-    androidx.compose.material3.Card(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-
-        Text(
-            text = clase,
-            modifier = Modifier
-                .padding(16.dp)
-        )
     }
 }
