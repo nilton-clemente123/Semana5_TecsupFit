@@ -15,8 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.clemente.tecsupfit.Screens.Detalle.DetalleClaseScreen
 import com.clemente.tecsupfit.Screens.Inicio.InicioScreen
 import com.clemente.tecsupfit.components.BottomBar
+import com.clemente.tecsupfit.model.clases
 import com.clemente.tecsupfit.ui.theme.TecsupFitTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,6 +39,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun TECSUPFitApp() {
 
+    val navController = rememberNavController()
+
     Scaffold(
 
         topBar = {
@@ -50,8 +57,47 @@ fun TECSUPFitApp() {
 
     ) { innerPadding ->
 
-        InicioScreen(
+        NavHost(
+            navController = navController,
+            startDestination = "inicio",
             modifier = Modifier.padding(innerPadding)
-        )
+        ) {
+
+            composable("inicio") {
+
+                InicioScreen(
+                    onClaseClick = { clase ->
+
+                        navController.navigate(
+                            "detalle/${clase.id}"
+                        )
+                    }
+                )
+            }
+
+            composable(
+                route = "detalle/{claseId}"
+            ) { backStackEntry ->
+
+                val claseId = backStackEntry
+                    .arguments
+                    ?.getString("claseId")
+                    ?.toIntOrNull()
+
+                val clase = clases.find {
+                    it.id == claseId
+                }
+
+                if (clase != null) {
+
+                    DetalleClaseScreen(
+                        clase = clase,
+                        onReservarClick = {
+                            // Lo implementaremos en el siguiente commit
+                        }
+                    )
+                }
+            }
+        }
     }
 }

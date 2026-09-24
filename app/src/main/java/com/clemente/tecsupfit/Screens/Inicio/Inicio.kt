@@ -17,35 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.clemente.tecsupfit.components.ClaseCard
 import com.clemente.tecsupfit.model.Clase
+import com.clemente.tecsupfit.model.clases
 
 
 @Composable
-fun InicioScreen( modifier: Modifier = Modifier) {
+fun InicioScreen( modifier: Modifier = Modifier,
+                  onClaseClick: (Clase) -> Unit
+) {
 
     val filtros = listOf(
         "Hoy",
         "Esta semana"
-    )
-
-    val clases = listOf(
-        Clase(
-            id = 1,
-            nombre = "Yoga funcional",
-            horario = "7:00 am",
-            sala = "Sala 2"
-        ),
-        Clase(
-            id = 2,
-            nombre = "Cross Training",
-            horario = "6:00 pm",
-            sala = "Sala 1"
-        ),
-        Clase(
-            id = 3,
-            nombre = "Spinning",
-            horario = "7:30 pm",
-            sala = "Sala 3"
-        )
     )
 
     var filtroSeleccionado = remember {
@@ -93,7 +75,10 @@ fun InicioScreen( modifier: Modifier = Modifier) {
             items(clases) { clase ->
 
                 ClaseCard(
-                    clase = clase
+                    clase = clase,
+                    onClick = {
+                        onClaseClick(clase)
+                    }
                 )
             }
         }

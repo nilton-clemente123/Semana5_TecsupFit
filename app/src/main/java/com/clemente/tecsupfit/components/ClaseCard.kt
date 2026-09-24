@@ -1,5 +1,6 @@
 package com.clemente.tecsupfit.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,11 +14,14 @@ import com.clemente.tecsupfit.model.Clase
 
 @Composable
 fun ClaseCard(
-    clase: Clase
+    clase: Clase,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
-            .padding(bottom = 8.dp)
+            .padding(bottom = 8.dp).clickable{
+                onClick()
+            }
     ) {
 
         Column(
