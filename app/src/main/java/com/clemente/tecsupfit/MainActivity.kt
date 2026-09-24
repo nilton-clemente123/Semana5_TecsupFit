@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.clemente.tecsupfit.Screens.Inicio.InicioScreen
 import com.clemente.tecsupfit.components.BottomBar
 import com.clemente.tecsupfit.ui.theme.TecsupFitTheme
 
@@ -49,16 +50,8 @@ fun TECSUPFitApp() {
 
     ) { innerPadding ->
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
-            contentAlignment = Alignment.Center
-        ) {
-
-            Text(
-                text = "Inicio"
-            )
-        }
+        InicioScreen(
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 }
