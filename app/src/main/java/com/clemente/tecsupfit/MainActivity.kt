@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.clemente.tecsupfit.Screens.Confirmacion.ConfirmacionScreen
 import com.clemente.tecsupfit.Screens.Detalle.DetalleClaseScreen
 import com.clemente.tecsupfit.Screens.Inicio.InicioScreen
 import com.clemente.tecsupfit.components.BottomBar
@@ -93,7 +94,31 @@ fun TECSUPFitApp() {
                     DetalleClaseScreen(
                         clase = clase,
                         onReservarClick = {
-                            // Lo implementaremos en el siguiente commit
+                            navController.navigate("confirmacion/${clase.id}")
+                        }
+                    )
+                }
+            }
+
+            composable(
+                route = "confirmacion/{claseId}"
+            ) { backStackEntry ->
+
+                val claseId = backStackEntry
+                    .arguments
+                    ?.getString("claseId")
+                    ?.toIntOrNull()
+
+                val clase = clases.find {
+                    it.id == claseId
+                }
+
+                if (clase != null) {
+
+                    ConfirmacionScreen(
+                        clase = clase,
+                        onVerReservasClick = {
+
                         }
                     )
                 }
