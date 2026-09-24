@@ -22,7 +22,8 @@ import com.clemente.tecsupfit.model.clases
 
 @Composable
 fun InicioScreen( modifier: Modifier = Modifier,
-                  onClaseClick: (Clase) -> Unit
+                  onClaseClick: (Clase) -> Unit,
+
 ) {
 
     val filtros = listOf(

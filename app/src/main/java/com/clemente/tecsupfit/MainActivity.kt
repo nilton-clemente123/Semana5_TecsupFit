@@ -12,6 +12,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,7 +23,9 @@ import androidx.navigation.compose.rememberNavController
 import com.clemente.tecsupfit.Screens.Confirmacion.ConfirmacionScreen
 import com.clemente.tecsupfit.Screens.Detalle.DetalleClaseScreen
 import com.clemente.tecsupfit.Screens.Inicio.InicioScreen
+import com.clemente.tecsupfit.Screens.Reserva.ReservasScreen
 import com.clemente.tecsupfit.components.BottomBar
+import com.clemente.tecsupfit.model.Clase
 import com.clemente.tecsupfit.model.clases
 import com.clemente.tecsupfit.ui.theme.TecsupFitTheme
 
@@ -36,9 +40,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TECSUPFitApp() {
+
+    val reservas = remember {
+        mutableStateListOf<Clase>()
+    }
 
     val navController = rememberNavController()
 
@@ -53,7 +63,11 @@ fun TECSUPFitApp() {
         },
 
         bottomBar = {
-            BottomBar()
+            BottomBar(
+                OnReservaClick = {
+                    navController.navigate("reservas")
+                }
+            )
         }
 
     ) { innerPadding ->
@@ -94,7 +108,14 @@ fun TECSUPFitApp() {
                     DetalleClaseScreen(
                         clase = clase,
                         onReservarClick = {
-                            navController.navigate("confirmacion/${clase.id}")
+
+                            if (!reservas.contains(clase)) {
+                                reservas.add(clase)
+                            }
+
+                            navController.navigate(
+                                "confirmacion/${clase.id}"
+                            )
                         }
                     )
                 }
@@ -118,10 +139,17 @@ fun TECSUPFitApp() {
                     ConfirmacionScreen(
                         clase = clase,
                         onVerReservasClick = {
-
+                                navController.navigate("reservas")
                         }
                     )
                 }
+            }
+
+            composable("reservas") {
+
+                ReservasScreen(
+                    reservas = reservas
+                )
             }
         }
     }

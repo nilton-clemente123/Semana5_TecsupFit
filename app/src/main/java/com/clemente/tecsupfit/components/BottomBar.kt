@@ -12,15 +12,18 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 
 @Composable
-fun BottomBar() {
+fun BottomBar(
+    OnReservaClick: () -> Unit
+) {
 
     NavigationBar {
 
         NavigationBarItem(
             selected = true,
-            onClick = { },
+            onClick = {},
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.RadioButtonUnchecked,
@@ -34,7 +37,9 @@ fun BottomBar() {
 
         NavigationBarItem(
             selected = false,
-            onClick = { },
+            onClick = {
+                OnReservaClick()
+            },
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.RadioButtonUnchecked,
