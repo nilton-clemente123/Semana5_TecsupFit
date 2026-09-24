@@ -12,18 +12,25 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 
 @Composable
 fun BottomBar(
-    OnReservaClick: () -> Unit
+    currentRoute: String?,
+    OnInicioClick: () -> Unit,
+    OnReservaClick: () -> Unit,
+    OnPerfilClick: () -> Unit,
+    OnRutinasClick: () -> Unit,
 ) {
 
     NavigationBar {
 
         NavigationBarItem(
-            selected = true,
-            onClick = {},
+            selected = currentRoute == "inicio",
+            onClick = {
+                OnInicioClick()
+            },
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.RadioButtonUnchecked,
@@ -36,7 +43,7 @@ fun BottomBar(
         )
 
         NavigationBarItem(
-            selected = false,
+            selected = currentRoute == "reservas",
             onClick = {
                 OnReservaClick()
             },
@@ -52,8 +59,8 @@ fun BottomBar(
         )
 
         NavigationBarItem(
-            selected = false,
-            onClick = { },
+            selected = currentRoute == "rutinas",
+            onClick = { OnRutinasClick()},
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.RadioButtonUnchecked,
@@ -66,8 +73,8 @@ fun BottomBar(
         )
 
         NavigationBarItem(
-            selected = false,
-            onClick = { },
+            selected = currentRoute == "perfil",
+            onClick = { OnPerfilClick() },
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.RadioButtonUnchecked,
