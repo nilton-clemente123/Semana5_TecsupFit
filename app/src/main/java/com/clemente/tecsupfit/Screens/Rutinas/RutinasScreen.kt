@@ -13,9 +13,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.clemente.tecsupfit.components.TecsupTopBar
 
 @Composable
-fun RutinasScreen() {
+fun RutinasScreen(
+    onBackClick: () -> Unit
+) {
 
     val rutinas = listOf(
         "Rutina de fuerza",
@@ -26,30 +29,38 @@ fun RutinasScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
     ) {
 
-        Text(
-            text = "Mis rutinas",
-            style = MaterialTheme.typography.headlineSmall
-        )
+        TecsupTopBar(title = "Mis rutinas", onBack = onBackClick)
 
-        LazyColumn(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+                .fillMaxSize()
+                .padding(24.dp)
         ) {
 
-            items(rutinas) { rutina ->
+            Text(
+                text = "Mis rutinas",
+                style = MaterialTheme.typography.headlineSmall
+            )
 
-                Card(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = rutina,
-                        modifier = Modifier.padding(16.dp)
-                    )
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 24.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+
+                items(rutinas) { rutina ->
+
+                    Card(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = rutina,
+                            modifier = Modifier.padding(16.dp)
+                        )
+                    }
                 }
             }
         }

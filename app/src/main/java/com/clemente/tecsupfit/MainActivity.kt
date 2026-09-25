@@ -4,20 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -46,7 +40,8 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+private val bottomBarRoutes = listOf("inicio", "reservas", "rutinas", "perfil")
+
 @Composable
 fun TECSUPFitApp() {
 
@@ -58,34 +53,31 @@ fun TECSUPFitApp() {
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStackEntry?.destination?.route
 
-    Scaffold(
 
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text("TECSUP Fit")
-                }
-            )
-        },
+    Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
 
         bottomBar = {
-            BottomBar(
-                currentRoute = currentRoute,
+            
+            if (currentRoute in bottomBarRoutes) {
+                BottomBar(
+                    currentRoute = currentRoute,
 
-                OnInicioClick={
-                    navController.navigate("inicio")
-                },
+                    OnInicioClick={
+                        navController.navigate("inicio")
+                    },
 
-                OnReservaClick = {
-                    navController.navigate("reservas")
-                },
-                OnPerfilClick = {
-                    navController.navigate("perfil")
-                },
-                OnRutinasClick = {
-                    navController.navigate("rutinas")
-                }
-            )
+                    OnReservaClick = {
+                        navController.navigate("reservas")
+                    },
+                    OnPerfilClick = {
+                        navController.navigate("perfil")
+                    },
+                    OnRutinasClick = {
+                        navController.navigate("rutinas")
+                    }
+                )
+            }
         }
 
     ) { innerPadding ->
@@ -125,6 +117,9 @@ fun TECSUPFitApp() {
 
                     DetalleClaseScreen(
                         clase = clase,
+                        onBackClick = {
+                            navController.navigateUp()
+                        },
                         onReservarClick = {
 
                             if (!reservas.contains(clase)) {
@@ -156,6 +151,9 @@ fun TECSUPFitApp() {
 
                     ConfirmacionScreen(
                         clase = clase,
+                        onBackClick = {
+                            navController.navigateUp()
+                        },
                         onVerReservasClick = {
                                 navController.navigate("reservas")
                         }
@@ -166,16 +164,27 @@ fun TECSUPFitApp() {
             composable("reservas") {
 
                 ReservasScreen(
-                    reservas = reservas
+                    reservas = reservas,
+                    onBackClick = {
+                        navController.navigateUp()
+                    }
                 )
             }
 
             composable("perfil") {
-                PerfilScreen()
+                PerfilScreen(
+                    onBackClick = {
+                        navController.navigateUp()
+                    }
+                )
             }
 
             composable ("rutinas") {
-                RutinasScreen()
+                RutinasScreen(
+                    onBackClick = {
+                        navController.navigateUp()
+                    }
+                )
             }
         }
     }
