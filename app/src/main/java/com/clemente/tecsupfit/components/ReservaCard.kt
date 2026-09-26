@@ -7,10 +7,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,36 +30,50 @@ fun ReservaCard(
         modifier = Modifier.fillMaxWidth()
     ) {
 
-        Column(
-            modifier = Modifier.padding(16.dp)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(20.dp)
+
         ) {
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(16.dp)
             ) {
-                Icon(
-                    imageVector = Icons.Filled.CheckCircle,
-                    contentDescription = "Reserva confirmada",
-                    tint = Color(26, 79, 28, 255)
-                )
-                Text(
-                    text = clase.nombre,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f)
-                )
-                TextButton(onClick = onCancel) {
-                    Text("Cancelar", color = Color(0xFFB00020))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.CheckCircle,
+                        contentDescription = "Reserva confirmada",
+                        tint = Color(26, 79, 28, 255)
+                    )
+                    Text(
+                        text = clase.nombre,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.weight(1f)
+                    )
                 }
+
+                Text(
+                    text = "${clase.horario} · ${clase.sala}"
+                )
+
+                Text(
+                    text = "Confirmada"
+                )
             }
 
-            Text(
-                text = "${clase.horario} · ${clase.sala}"
-            )
-
-            Text(
-                text = "Confirmada"
-            )
+            IconButton(onClick = onCancel) {
+                Icon(
+                    imageVector = Icons.Filled.Delete,
+                    contentDescription = "Cancelar reserva",
+                    tint = Color(0xFFB00020)
+                )
+            }
         }
     }
 }
