@@ -2,6 +2,7 @@ package com.clemente.tecsupfit.Screens.Reserva
 
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.clemente.tecsupfit.components.ReservaCard
@@ -46,19 +48,28 @@ fun ReservasScreen(
         ) {
 
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            if (reservas.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("Aún no tienes reservas")
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
 
-                items(reservas) { clase ->
+                    items(reservas) { clase ->
 
-                    ReservaCard(
-                        clase = clase,
-                        onCancel = { claseACancelar = clase }
-                    )
+                        ReservaCard(
+                            clase = clase,
+                            onCancel = { claseACancelar = clase }
+                        )
+                    }
                 }
             }
         }
