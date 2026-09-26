@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +21,8 @@ import com.clemente.tecsupfit.model.Clase
 
 @Composable
 fun ReservaCard(
-    clase: Clase
+    clase: Clase,
+    onCancel: () -> Unit
 ) {
 
     Card(
@@ -42,8 +44,12 @@ fun ReservaCard(
                 )
                 Text(
                     text = clase.nombre,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f)
                 )
+                TextButton(onClick = onCancel) {
+                    Text("Cancelar", color = Color(0xFFB00020))
+                }
             }
 
             Text(

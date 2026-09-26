@@ -49,6 +49,10 @@ fun TECSUPFitApp() {
         mutableStateListOf<Clase>()
     }
 
+    val onCancelReserva: (Clase) -> Unit = { clase ->
+        reservas.remove(clase)
+    }
+
     val navController = rememberNavController()
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStackEntry?.destination?.route
@@ -165,6 +169,7 @@ fun TECSUPFitApp() {
 
                 ReservasScreen(
                     reservas = reservas,
+                    onCancelReserva = onCancelReserva,
                     onBackClick = {
                         navController.navigateUp()
                     }

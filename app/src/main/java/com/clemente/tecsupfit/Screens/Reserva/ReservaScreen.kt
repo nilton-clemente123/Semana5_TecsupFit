@@ -20,6 +20,7 @@ import com.clemente.tecsupfit.model.Clase
 @Composable
 fun ReservasScreen(
     reservas: List<Clase>,
+    onCancelReserva: (Clase) -> Unit,
     onBackClick: () -> Unit
 ) {
 
@@ -47,7 +48,8 @@ fun ReservasScreen(
                 items(reservas) { clase ->
 
                     ReservaCard(
-                        clase = clase
+                        clase = clase,
+                        onCancel = { onCancelReserva(clase) }
                     )
                 }
             }
